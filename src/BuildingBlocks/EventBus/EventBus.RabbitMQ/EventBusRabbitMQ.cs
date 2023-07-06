@@ -92,6 +92,11 @@ namespace EventBus.RabbitMQ
                                      autoDelete: false,
                                      arguments: null);
 
+                //queuebind sonradan ekledik çünkü eğer hiç dinleyen yoksa mesajı gönderirken biz rmq da görebilelim boşluğa düşmesin diye
+                consumerChannel.QueueBind(queue: GetSubName(eventName),
+                                        exchange: EventBusConfig.DefaultTopicName,
+                                        routingKey: eventName);
+
                 consumerChannel.BasicPublish(
                     exchange: EventBusConfig.DefaultTopicName,
                     routingKey: eventName,
