@@ -53,8 +53,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Start();
+app.Start(); //app.Run() kýsmý ile deðiþildi ConsulRegistrationda var address = addresses.Addresses.First(); null geliyordu..
 
 app.RegisterWithConsul(lifetime); //ConsulRegistration.cs deki method.
 
-app.WaitForShutdown();
+app.WaitForShutdown(); // eklendi.
