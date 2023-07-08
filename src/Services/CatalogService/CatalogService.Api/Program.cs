@@ -21,10 +21,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<CatalogSettings>(builder.Configuration.GetSection("CatalogSettings"));
 builder.Services.ConfigureDbContext(builder.Configuration);
 
+builder.Services.ConfigureConsul(builder.Configuration);//consulregistrationda ki bölüm için ekledik
+
 //builder.WebHost.UseWebRoot("Pics");
 //builder.WebHost.UseContentRoot(Directory.GetCurrentDirectory());
 
 var app = builder.Build();
+
+var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>(); //consulregistrationda için
 
 app.MigrateDbContext<CatalogContext>((context, services) =>
 {
@@ -49,4 +53,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+app.Start();
+
+app.RegisterWithConsul(lifetime); //ConsulRegistration.cs deki method.
+
+app.WaitForShutdown();

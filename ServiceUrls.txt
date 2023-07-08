@@ -1,0 +1,13 @@
+
+
+
+
+
+NotificationService            -> Console App
+
+Web.ApiGateway                 -> http://localhost:5000
+PaymentService.Api             -> http://localhost:5001
+OrderService.ApiGateway        -> http://localhost:5002
+BasketService.ApiGateway       -> http://localhost:5003
+CatalogService.ApiGateway      -> http://localhost:5004
+IdentityService.ApiGateway     -> http://localhost:5005

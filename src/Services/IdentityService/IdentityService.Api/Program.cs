@@ -1,4 +1,8 @@
 using IdentityService.Api.Application.Services;
+using IdentityService.Api.Extensions;
+using Microsoft.AspNetCore.Hosting.Server.Features;
+using Microsoft.AspNetCore.Hosting.Server;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +14,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.ConfigureConsul(builder.Configuration); //ConsulRegistration.cs deki method.
+
 var app = builder.Build();
+
+var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>(); //ConsulRegistration için
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -25,4 +33,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+app.Start();
+
+app.RegisterWithConsul(lifetime); //ConsulRegistration.cs deki method.
+
+app.WaitForShutdown();
