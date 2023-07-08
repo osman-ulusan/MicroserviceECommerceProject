@@ -2,6 +2,8 @@ using BasketService.Api.Core.Application.Repository;
 using BasketService.Api.Core.Application.Services;
 using BasketService.Api.Extensions;
 using BasketService.Api.Infrastructure;
+using BasketService.Api.IntegrationEvents.EventHandlers;
+using BasketService.Api.IntegrationEvents.Events;
 using EventBus.Base;
 using EventBus.Base.Abstraction;
 using EventBus.Factory;
@@ -41,7 +43,12 @@ builder.Services.AddHttpContextAccessor();//IdentityServicede kullanmýþtýk, bura
 builder.Services.AddScoped<IBasketRepository, BasketRepository>(); //ne zaman IBaskerRepositoryi kullanmak istersek bize BasketRepository dönecek
 builder.Services.AddTransient<IIdentityService, IdentityService>(); //ne zaman IIdentityService kullanmak istersek bize IdentityService dönecek
 
+builder.Services.AddTransient<OrderCreatedIntegrationEventHandler>();
+
 var app = builder.Build();
+
+IEventBus eventBus = app.Services.GetRequiredService<IEventBus>();
+eventBus.Subscribe<OrderCreatedIntegrationEvent, OrderCreatedIntegrationEventHandler>(); //bunlarý dinlemeye baþlayacak eventbus
 
 var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>(); //ConsulRegistration için
 
@@ -54,6 +61,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication(); //controllerda [Authorize] larýn aktif olmasý için
 app.UseAuthorization();
 
 app.MapControllers();

@@ -49,7 +49,7 @@ namespace BasketService.Api.Infrastructure
         public async Task<CustomerBasket> UpdateBasketAsync(CustomerBasket basket)
         {
             var created = await _database.StringSetAsync(basket.BuyerId, JsonConvert.SerializeObject(basket)); // basket ile buyerı stringSETAsync ile SET ediyoruz, hiç yoksa buyerId ile ilgili kayıt created ediyor devam ediyor.
-            if (!created)
+            if (!created) //oluşturamazsa hata
             {
                 _logger.LogInformation("Problem occur persisting the item");
                 return null;
