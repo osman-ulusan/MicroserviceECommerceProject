@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OrderService.Domain.Events
 {
-    public class OrderStartedDomaintEvent : INotification
+    public class OrderStartedDomainEvent : INotification
     {
         public string UserName { get; }
         public int CardTypeId { get; }
@@ -18,7 +18,7 @@ namespace OrderService.Domain.Events
         public DateTime CardExpiration { get; }
         public Order Order { get; }
 
-        public OrderStartedDomaintEvent(string userName, int cardTypeId, string cardNumber, string cardSecurityNumber, string cardHolderName, DateTime cardExpiration, Order order)
+        public OrderStartedDomainEvent(string userName, int cardTypeId, string cardNumber, string cardSecurityNumber, string cardHolderName, DateTime cardExpiration, Order order)
         {
             UserName = userName;
             CardTypeId = cardTypeId;

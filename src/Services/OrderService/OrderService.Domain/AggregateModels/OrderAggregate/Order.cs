@@ -44,7 +44,7 @@ namespace OrderService.Domain.AggregateModels.OrderAggregate
 
         private void AddOrderStartedDomaintEvent(string userName, int cardTypeId, string cardNumber, string cardSecurityNumber, string cardHolderNumber, DateTime cardExpiration)
         {
-            var orderStartedDomainEvent = new OrderStartedDomaintEvent(userName, cardTypeId, cardNumber, cardSecurityNumber, cardHolderNumber, cardExpiration, this);
+            var orderStartedDomainEvent = new OrderStartedDomainEvent(userName, cardTypeId, cardNumber, cardSecurityNumber, cardHolderNumber, cardExpiration, this);
 
             AddDomainEvent(orderStartedDomainEvent);
         }
