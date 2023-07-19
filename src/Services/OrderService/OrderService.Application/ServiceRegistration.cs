@@ -11,7 +11,7 @@ namespace OrderService.Application
 {
     public static class ServiceRegistration
     {
-        public static IServiceCollection AddApplicationRegistration(this IServiceCollection services)
+        public static IServiceCollection AddApplicationRegistration(this IServiceCollection services, Type startup)
         {
             var assm = Assembly.GetExecutingAssembly();
 
